@@ -1,13 +1,16 @@
 package com.example.applaunchtask.viewmodel
 
-import android.content.Context
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import com.example.applaunchtask.model.Daily
 import com.example.applaunchtask.repository.UserRepository
 import com.example.applaunchtask.roomdatabase.UserDetail
 import com.example.applaunchtask.roomdatabase.UserEntity
 
-class UserViewModel : ViewModel() {
+class UserViewModel(application: Application) : AndroidViewModel(application) {
+
+    var context : Application = application
 
     var repo : UserRepository = UserRepository()
     val isInserted : LiveData<Boolean>
@@ -22,21 +25,33 @@ class UserViewModel : ViewModel() {
         get() {
             return repo.userList
         }
+    val weather : LiveData<List<Daily>>
+        get() {
+            return repo.weather
+        }
 
-    fun signUpUser(context: Context, entity: UserEntity) {
+    fun signUpUser(entity: UserEntity) {
         repo.signUpUser(context, entity)
     }
 
-    fun loginUser(context: Context, userName: String, password: String) {
+    fun loginUser(userName: String, password: String) {
         repo.loginUser(context, userName, password)
     }
 
-    fun getUserList(context: Context) {
+    fun getUserList() {
         repo.getUserList(context)
     }
 
-    fun saveUser(context: Context, entity: UserDetail) {
+    fun saveUser(entity: UserDetail) {
         repo.saveUser(context, entity)
+    }
+
+    fun getWeatherData() {
+        repo.getWeatherData(context)
+    }
+
+    fun deleteUserData(userDetail: UserDetail) {
+        repo.deleteUserData(context, userDetail)
     }
 
 }

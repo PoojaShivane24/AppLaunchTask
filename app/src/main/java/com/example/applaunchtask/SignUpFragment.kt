@@ -80,7 +80,7 @@ class SignUpFragment : Fragment() {
                 if (userName.isNotEmpty()) {
                     if (password == confirmPassword) {
                         val entity = UserEntity(userName, password)
-                        viewModel.signUpUser(requireContext(), entity)
+                        viewModel.signUpUser(entity)
 
                     } else {
                         Toast.makeText(context, "Password does not match", Toast.LENGTH_SHORT).show()

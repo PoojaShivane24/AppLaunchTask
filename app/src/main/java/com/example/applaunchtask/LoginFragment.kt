@@ -85,7 +85,7 @@ class LoginFragment : Fragment() {
             else -> {
                 fragmentLoginSignupBinding.textInputLayout2.isEndIconVisible = true
 
-                viewModel.loginUser(requireContext(), userName, password)
+                viewModel.loginUser(userName, password)
 
             }
         }

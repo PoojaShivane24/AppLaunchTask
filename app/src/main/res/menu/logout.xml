@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/add"
-        android:icon="@drawable/ic_round_add_24"
-        android:title="@string/add"
+    <item android:id="@+id/menu_logout"
+        android:title="Logout"
+        android:icon="@drawable/ic_logout_24"
         app:showAsAction="always"
         android:iconTint="@color/white"/>
 </menu>

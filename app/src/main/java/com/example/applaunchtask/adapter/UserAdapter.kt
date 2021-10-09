@@ -6,19 +6,21 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applaunchtask.R
-import com.example.applaunchtask.databinding.FragmentUserListBinding
+import com.example.applaunchtask.RecyclerViewClickInterface
 import com.example.applaunchtask.databinding.UserItemBinding
 import com.example.applaunchtask.roomdatabase.UserDetail
 
-class UserAdapter(context: Context, userList : List<UserDetail>) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(context: Context, userList : List<UserDetail>, recyclerViewClickInterface: RecyclerViewClickInterface) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private var userList : MutableList<UserDetail> = ArrayList()
     private var context : Context
+    private var recyclerViewClickInterface: RecyclerViewClickInterface? = null
     init {
         if (userList != null) {
             this.userList.addAll(userList)
         }
         this.context = context
+        this.recyclerViewClickInterface = recyclerViewClickInterface
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -29,9 +31,16 @@ class UserAdapter(context: Context, userList : List<UserDetail>) : RecyclerView.
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
-        holder.view.tvName.text = user.userName
-        holder.view.tvLastName.text = user.lastName
-        holder.view.tvEmail.text = user.email
+        val name = "Name: "+user.userName
+        val lastName = "Last Name: "+user.lastName
+        val email = "Email: " + user.email
+        holder.view.tvName.text = name
+        holder.view.tvLastName.text = lastName
+        holder.view.tvEmail.text = email
+
+        holder.view.cvContainer.setOnClickListener {
+            recyclerViewClickInterface?.onItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -39,8 +48,13 @@ class UserAdapter(context: Context, userList : List<UserDetail>) : RecyclerView.
     }
 
     fun updateList(list: List<UserDetail>) {
-        userList.addAll(list)
+        userList = list as MutableList<UserDetail>
         notifyItemInserted(list.size-1)
+    }
+
+    fun removeData(position: Int) {
+        userList.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     class UserViewHolder(val view : UserItemBinding) : RecyclerView.ViewHolder(view.root)

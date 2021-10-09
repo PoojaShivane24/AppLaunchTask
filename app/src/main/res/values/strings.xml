@@ -12,4 +12,8 @@
     <string name="enter_lastname">Last name</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="temp">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="weather_type">Weather Type</string>
+    <string name="wind_speed">Wind Speed</string>
 </resources>

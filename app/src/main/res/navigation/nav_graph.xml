@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.applaunchtask.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="Login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.applaunchtask.SignUpFragment"
-        android:label="SignUpFragment" >
+        android:label="Sign Up">
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -30,18 +30,32 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.example.applaunchtask.UserListFragment"
-        android:label="fragment_user_list"
-        tools:layout="@layout/fragment_user_list" >
+        android:label="Users"
+        tools:layout="@layout/fragment_user_list">
         <action
             android:id="@+id/action_userListFragment_to_userFormFragment"
             app:destination="@id/userFormFragment" />
+        <action
+            android:id="@+id/action_userListFragment_to_weatherDataFragment"
+            app:destination="@id/weatherDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFormFragment"
         android:name="com.example.applaunchtask.UserFormFragment"
-        android:label="UserFormFragment" >
+        android:label="Form">
         <action
             android:id="@+id/action_userFormFragment_to_userListFragment"
             app:destination="@id/userListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherDataFragment"
+        android:name="com.example.applaunchtask.WeatherDataFragment"
+        android:label="Weather Data">
+        <action
+            android:id="@+id/action_weatherDataFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_weatherDataFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>
