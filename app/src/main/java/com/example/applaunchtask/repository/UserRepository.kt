@@ -1,10 +1,8 @@
 package com.example.applaunchtask.repository
 
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.applaunchtask.R
 import com.example.applaunchtask.roomdatabase.UserDatabase
 import com.example.applaunchtask.roomdatabase.UserDetail
 import com.example.applaunchtask.roomdatabase.UserEntity
@@ -43,8 +41,8 @@ class UserRepository {
         coroutineScope.launch {
             val userInfo =  UserDatabase.getInstance(context).getUserDetailDao().getUser(userName, password)
             if (userInfo != null) {
-                isInsertedLiveData.postValue(true)
-            } else isInsertedLiveData.postValue(false)
+                isLoggedInLiveData.postValue(true)
+            } else isLoggedInLiveData.postValue(false)
         }
     }
 
@@ -52,6 +50,14 @@ class UserRepository {
         coroutineScope.launch {
             val userList = UserDatabase.getInstance(context).getUserDetailDao().getUserList()
             userListLiveData.postValue(userList)
+        }
+    }
+
+    fun saveUser(context: Context, entity : UserDetail) {
+        coroutineScope.launch {
+            if (UserDatabase.getInstance(context).getUserDetailDao().saveUser(entity) > 0L) {
+                isInsertedLiveData.postValue(true)
+            } else isInsertedLiveData.postValue(false)
         }
     }
 }

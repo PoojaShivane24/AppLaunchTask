@@ -35,4 +35,8 @@ class UserViewModel : ViewModel() {
         repo.getUserList(context)
     }
 
+    fun saveUser(context: Context, entity: UserDetail) {
+        repo.saveUser(context, entity)
+    }
+
 }

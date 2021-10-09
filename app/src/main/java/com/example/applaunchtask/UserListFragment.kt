@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.applaunchtask.adapter.UserAdapter
 import com.example.applaunchtask.databinding.FragmentUserListBinding
@@ -23,6 +24,8 @@ class UserListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         fragmentUserListBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_user_list, container, false)
+
+//        requireActivity().setS
         return fragmentUserListBinding.root
     }
 
@@ -30,6 +33,9 @@ class UserListFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserList(requireContext())
 
+        fragmentUserListBinding.btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_userListFragment_to_userFormFragment)
+        }
         viewModel.userList.observe(viewLifecycleOwner) {
             setAdapter(it)
         }
@@ -45,10 +51,21 @@ class UserListFragment : Fragment() {
         }
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if (menu.equals(R.menu.add_user)) {
-            findNavController().navigate(R.id.action_userListFragment_to_userFormFragment)
+        inflater.inflate(R.menu.add_user, menu)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.add -> {
+                findNavController().navigate(R.id.action_userListFragment_to_userFormFragment)
+            }
         }
+        return true
+//        return item.onNavDestinationSelected(navController)
     }
 
     companion object {
